@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-arm64-openssl-3.0.x", "linux-arm64-openssl-1.1.x"] // Add this line for deployement on containers.
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int     @id @default(autoincrement())
+  firstName   String?
+  lastName    String?
+  email       String  @unique
+  password    String
+  phoneNumber String?
+  countryCode String?
+  nationality String?
+
+  isActive      Boolean  @default(true)
+  emailVerified Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+}
+
+model OTP {
+  id     Int      @id @default(autoincrement())
+  type   OTPType
+  code   String
+  userId Int
+  expiry DateTime @default(now())
+
+  createdAt DateTime @default(now())
+
+  @@unique([userId, type])
+}
+
+model Waitlist {
+  id          Int      @id @default(autoincrement())
+  firstName   String?
+  lastName    String?
+  email       String   @unique
+  phoneNumber String?
+  countryCode String?
+  nationality String?
+  isConverted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+enum OTPType {
+  EMAIL
+  PHONE
+}

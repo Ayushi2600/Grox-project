@@ -1,0 +1,69 @@
+// =============================================================================
+// SWAPER SLIDER COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.swiper-container {
+  height: 100%;
+  .swiper {
+    width: 100%;
+    height: 100%;
+    color: $color-white;
+    border-radius: $spacing-20;
+    background: linear-gradient(to left, $grox-poppy-09, $grox-poppy-10);
+    .swiper-pagination {
+      bottom: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0px 40px;
+      .swiper-pagination-bullet {
+        flex: 1 1;
+        height: 4px;
+        border: none;
+        border-radius: 32px;
+        background-color: $color-white;
+      }
+    }
+  }
+
+  .hero-image {
+    text-align: right;
+    display: inline-block;
+    width: 100%;
+
+    img {
+      border-radius: $spacing-20;
+      @media (max-width: 1600px) {
+        width: 70%;
+      }
+      &.secImg {
+        position: absolute;
+        right: 0px;
+        z-index: -1;
+        @media (max-width: 1600px) {
+          top: -40px;
+        }
+      }
+    }
+  }
+
+  .hero-text {
+    text-align: left;
+    margin-top: auto;
+    position: absolute;
+    bottom: 100px;
+    padding: 0px 40px;
+
+    h3 {
+      font-size: $spacing-32;
+      margin-bottom: $spacing-8;
+    }
+
+    p {
+      margin: $spacing-0;
+      font-size: $spacing-16;
+    }
+  }
+}

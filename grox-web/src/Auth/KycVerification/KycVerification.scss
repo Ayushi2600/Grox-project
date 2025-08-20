@@ -1,0 +1,96 @@
+@use '../../styles/main' as *;
+
+.kyc-verification-screen {
+  .verfiy-container {
+    padding: 45px;
+    .logo-div {
+      .form-heading {
+        margin-bottom: $spacing-12;
+      }
+      .form-desc {
+        font-size: $desktop-16pt-regular;
+        font-weight: $font-weight-regular;
+        color: $color-grey-1100;
+        margin-top: $spacing-0;
+      }
+    }
+    .verification-card {
+      background-color: $color-white;
+      min-width: 580px;
+      padding: $spacing-40;
+      border-radius: $spacing-8;
+    }
+    .complete-step-card {
+      .steps-main-div {
+        margin-bottom: $spacing-16;
+        .steps {
+          position: relative;
+          display: flex;
+          align-items: flex-start;
+          gap: 20px;
+          padding-bottom: $spacing-24;
+          svg {
+            width: 34px;
+            min-width: 34px;
+            height: 34px;
+            margin-top: 2px;
+          }
+          .step-head {
+            margin: $spacing-0;
+            margin-bottom: $spacing-8;
+            font-size: 18px;
+            font-weight: $font-weight-semibold;
+            color: $color-grey-2200;
+            line-height: $line-height-tight;
+          }
+          .step-desc {
+            margin: $spacing-0;
+            font-weight: $font-weight-regular;
+            font-size: $desktop-14pt-regular;
+            color: $color-grey-1700;
+          }
+          &.complete {
+            .step-head,
+            .step-desc {
+              opacity: 0.6;
+            }
+          }
+          &:not(:nth-child(4))::after {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 45px;
+            background: $grox-poppy-base;
+            position: absolute;
+            top: 35px;
+            left: 16px;
+          }
+          &:nth-child(3)::after {
+            height: 65px;
+          }
+          &.inprogrss {
+            &::after {
+              background-color: $color-grey-1500;
+            }
+          }
+        }
+      }
+    }
+    .form-action-btn {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 20px;
+      .later-btn {
+        background-color: $color-grey-1900 !important;
+        border-color: $color-grey-1900 !important;
+        color: $color-grey-1100 !important;
+
+        &:hover:not(:disabled) {
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgb(187 187 187 / 30%);
+        }
+      }
+    }
+  }
+}

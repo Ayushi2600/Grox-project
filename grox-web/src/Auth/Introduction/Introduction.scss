@@ -1,0 +1,96 @@
+// =============================================================================
+// INTRODUCTION SCREEN WRAPER COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.introduction-screen {
+  .intro-container {
+    padding: $spacing-40;
+  }
+
+  .intro-form {
+    background-color: white;
+    padding: $spacing-40;
+    border-radius: $spacing-8;
+    .form-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: $spacing-20;
+    }
+    .input-field {
+      height: 42px;
+      width: 234px;
+      padding: 0 10px;
+      border: 1px solid $color-grey-1500;
+      border-radius: 8px;
+      font-size: $spacing-16;
+      font-weight: $font-weight-regular;
+      font-family: $font-family-primary;
+      background-color: $color-white;
+      color: $color-black;
+      @include transition(all, 0.2s, ease-in-out);
+
+      @include mobile {
+        font-size: $mobile-16pt-regular;
+      }
+
+      &::placeholder {
+        color: $color-grey-400;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $grox-blue-base;
+        box-shadow: 0 0 0 2px rgba(33, 162, 254, 0.1);
+      }
+
+      &.error {
+        border-color: $grox-poppy-02;
+        background-color: $grox-poppy-01;
+        color: $grox-poppy-07;
+      }
+      &.verify {
+        border-color: $grox-green-02;
+        background-color: $grox-green-01;
+        color: $grox-green-08;
+      }
+    }
+    label {
+      display: block;
+      margin-bottom: $spacing-4;
+      font-size: $desktop-14pt-regular;
+      font-weight: $font-weight-bold;
+      color: $color-grey-1200;
+      line-height: $line-height-normal;
+
+      @include mobile {
+        font-size: $mobile-14pt-regular;
+      }
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .referral-group {
+      input {
+        width: 100%;
+      }
+    }
+    .phone-input {
+      border-width: 1px;
+      &:focus-within {
+        outline: none;
+        border-color: $grox-blue-base;
+        box-shadow: 0 0 0 2px rgba(33, 162, 254, 0.1);
+      }
+      &__dropdown {
+        border-right: 0px;
+      }
+    }
+  }
+
+  .validation-error-txt {
+    display: block;
+  }
+}

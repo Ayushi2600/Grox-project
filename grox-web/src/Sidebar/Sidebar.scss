@@ -1,0 +1,26 @@
+@use '../styles/main.scss' as *;
+
+.sidebar {
+  height: calc(100% - 60px);
+  margin: 30px 0px;
+  background-color: $color-white;
+  border-radius: $spacing-16;
+  padding: $spacing-20;
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    .side-item {
+      flex: 1 1;
+      padding: 15px 0px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      .text {
+        font-size: $spacing-16;
+        font-weight: $font-weight-regular;
+        color: $color-grey-1700;
+      }
+    }
+  }
+}

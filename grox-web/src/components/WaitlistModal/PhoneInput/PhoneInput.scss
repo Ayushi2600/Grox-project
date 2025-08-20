@@ -1,0 +1,297 @@
+// =============================================================================
+// PHONE INPUT COMPONENT STYLES
+// =============================================================================
+
+@use '../../../styles/main' as *;
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// =============================================================================
+// PHONE INPUT CONTAINER
+// =============================================================================
+
+.phone-input {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  position: relative;
+  border: 2px solid $color-grey-200;
+  border-radius: 12px;
+  background-color: $color-white;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &:focus-within {
+    border-color: $color-grox-poppy-base;
+    box-shadow: 0 0 0 3px rgba(213, 66, 65, 0.1);
+  }
+}
+
+// =============================================================================
+// DROPDOWN SECTION
+// =============================================================================
+
+.phone-input__dropdown {
+  flex-shrink: 0;
+  border-right: 1px solid $color-grey-200;
+  align-items: center;
+}
+
+.phone-input__dropdown-button {
+  display: flex;
+  align-items: center;
+  gap: $spacing-4;
+  padding: $spacing-16;
+  margin: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &:hover:not(:disabled) {
+    opacity: 0.8;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-grox-poppy-base;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--open {
+    .phone-input__caret {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.phone-input__flag {
+  width: 24px;
+  height: 24px;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.phone-input__caret {
+  width: 16px;
+  height: 16px;
+  color: $color-grey-600;
+  @include transition(transform, 0.2s, ease-in-out);
+
+  &--flipped {
+    transform: rotate(180deg);
+  }
+}
+
+// =============================================================================
+// INPUT AREA
+// =============================================================================
+
+.phone-input__input-area {
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+  flex-grow: 1;
+  padding: $spacing-12;
+  background-color: transparent;
+}
+
+.phone-input__code-holder {
+  padding: $spacing-4 $spacing-8;
+  background-color: $color-grey-100;
+  border-radius: 6px;
+  font-size: $desktop-14pt-regular;
+  font-weight: $font-weight-medium;
+  color: $color-grey-700;
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+.phone-input__number-input {
+  flex-grow: 1;
+  border: none;
+  background: none;
+  font-size: $desktop-16pt-regular;
+  font-family: $font-family-primary;
+  color: $color-grey-900;
+  outline: none;
+  min-width: 0;
+
+  @include mobile {
+    font-size: $mobile-16pt-regular;
+  }
+
+  &::placeholder {
+    color: $color-grey-400;
+  }
+
+  &:disabled {
+    color: $color-grey-500;
+    cursor: not-allowed;
+  }
+
+  &--error {
+    color: $grox-error;
+  }
+}
+
+// =============================================================================
+// DROPDOWN MENU
+// =============================================================================
+
+.phone-input__dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: $color-white;
+  border: 1px solid $color-grey-200;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 1000;
+  animation: dropdownFadeIn 0.2s ease-out;
+  margin-top: $spacing-4;
+
+  // Scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-grey-100;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-grey-300;
+    border-radius: 3px;
+
+    &:hover {
+      background: $color-grey-400;
+    }
+  }
+}
+
+.phone-input__dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: $spacing-12;
+  padding: $spacing-12 $spacing-16;
+  width: 100%;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-align: left;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &:hover,
+  &--highlighted {
+    background-color: var(--grox-primary-color);
+    color: white;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-grox-poppy-base;
+    outline-offset: -2px;
+  }
+
+  &:first-child {
+    border-radius: 12px 12px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 12px 12px;
+  }
+}
+
+.phone-input__country-name {
+  flex-grow: 1;
+  font-size: $desktop-14pt-regular;
+  color: $color-grey-900;
+  font-weight: $font-weight-medium;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+.phone-input__country-code {
+  font-size: $desktop-14pt-regular;
+  color: $color-grey-600;
+  font-weight: $font-weight-medium;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+// =============================================================================
+// ERROR STATE
+// =============================================================================
+
+.phone-input__error {
+  font-size: $desktop-14pt-regular;
+  color: $grox-error;
+  line-height: $line-height-normal;
+  margin-top: $spacing-4;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+// =============================================================================
+// RESPONSIVE ADJUSTMENTS
+// =============================================================================
+
+@include mobile {
+  .phone-input {
+    // Keep the row layout on mobile
+    flex-direction: row;
+    gap: 0;
+  }
+
+  .phone-input__dropdown {
+    // Ensure dropdown stays compact on mobile
+    flex-shrink: 0;
+  }
+
+  .phone-input__dropdown-button {
+    padding: $spacing-8 $spacing-12;
+  }
+
+  .phone-input__input-area {
+    padding: $spacing-8 $spacing-12;
+  }
+
+  .phone-input__code-holder {
+    padding: $spacing-4 $spacing-8;
+    font-size: $mobile-14pt-regular;
+  }
+
+  .phone-input__number-input {
+    font-size: $mobile-14pt-regular;
+  }
+}

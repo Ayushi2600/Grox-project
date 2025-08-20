@@ -1,0 +1,45 @@
+.footer-mover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  top: -120;
+  pointer-events: none;
+  opacity: 60%;
+
+  @media (max-width: 768px) {
+    bottom: 20;
+  }
+
+  &__group {
+    display: flex;
+    width: 100%;
+    animation: scroll-horizontal 20s linear infinite;
+    gap: 0px;
+    position: absolute;
+    bottom: 0;
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.5;
+    }
+  }
+}
+
+// Horizontal scrolling keyframes
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

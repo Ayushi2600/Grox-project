@@ -1,0 +1,221 @@
+// =============================================================================
+// HOW GROX WORKS COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.how-it-works {
+  position: relative;
+  padding: $section-padding-mobile 0;
+  background-color: #f4fff9;
+  overflow: hidden;
+  align-content: center;
+
+  @include desktop-up {
+    padding: 56px 80px;
+  }
+}
+
+.how-it-works__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.how-it-works__pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+.how-it-works__spinner {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  animation: spin 20s linear infinite;
+  opacity: 0.3;
+  z-index: 3;
+
+  // Mobile: left bottom, smaller size
+  bottom: 20px;
+  left: -40px;
+  width: 350px;
+  height: 350px;
+
+  // Desktop: right center, behind the image
+  @include desktop-up {
+    top: 10%;
+    left: 500px;
+    transform: translateY(-50%);
+    width: 1000px;
+    height: 1000px;
+    opacity: 0.3;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.how-it-works__content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 $container-padding-mobile;
+
+  @include tablet-up {
+    padding: 0 $container-padding-tablet;
+  }
+
+  @include desktop-up {
+    padding: 0;
+    gap: 24px;
+  }
+}
+
+.how-it-works__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-transform: capitalize;
+  color: $grox-green-07;
+  text-align: left;
+  margin-bottom: $spacing-16;
+
+  @include desktop-up {
+    font-size: 24px;
+  }
+}
+
+.how-it-works__container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-48;
+
+  @include desktop-up {
+    flex-direction: row;
+    gap: 24px;
+    align-items: flex-start;
+  }
+}
+
+.how-it-works__steps {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.how-it-works__step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.5s ease-out,
+    transform 1.8s ease-out;
+
+  &.how-it-works__step--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.how-it-works__step-icon-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 64px;
+}
+
+.how-it-works__step-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+}
+
+.how-it-works__step-line {
+  width: 2px;
+  flex: 1;
+  min-height: 120px;
+  border-radius: 1px;
+  margin: 0;
+
+  @media (max-width: 768px) {
+    min-height: 120px;
+    style: breakpoint;
+  }
+  // The line will automatically stretch to match the step content height
+  // minus the icon height (48px) and any gaps
+}
+
+.how-it-works__step-text {
+  flex: 1;
+  padding-bottom: $spacing-8;
+  width: 581px;
+}
+
+.how-it-works__step-title {
+  color: $color-grey-900;
+  font-size: 20px;
+  line-height: 1.4;
+  margin: 0;
+  @include typography-h5;
+
+  @include desktop-up {
+    font-size: 24px;
+    margin: 0;
+  }
+}
+
+.how-it-works__step-description {
+  color: $color-grey-600;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  
+  @include typography-body;
+  @include desktop-up {
+    font-size: 18px;
+  }
+}
+
+.how-it-works__image {
+  display: none;
+  flex-shrink: 0;
+
+  @include desktop-up {
+    display: block;
+    width: 660px;
+    height: 726px;
+  }
+}
+
+.how-it-works__image-desktop {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

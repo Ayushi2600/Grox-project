@@ -1,0 +1,193 @@
+// =============================================================================
+// TESTIMONIALS COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.testimonials {
+  position: relative;
+  padding: 40px 0;
+  background-color: $grox-violet-01;
+  overflow: hidden;
+
+  @include desktop-up {
+    margin: 0;
+    padding: 64px 0;
+  }
+}
+
+.testimonials__content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $container-padding-mobile;
+
+  @include tablet-up {
+    padding: 0 $container-padding-tablet;
+  }
+
+  @include desktop-up {
+    padding: 0;
+  }
+}
+
+.testimonials__title {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: $grox-violet-base;
+  text-align: center;
+  margin-bottom: $spacing-48;
+
+  @include desktop-up {
+    font-size: 18px;
+  }
+}
+
+.testimonials__row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-48;
+
+  @include desktop-up {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: $spacing-80;
+    width: 100%;
+  }
+}
+
+// =============================================================================
+// MASK GROUP STYLES
+// =============================================================================
+
+.testimonials__mask-group {
+  position: relative;
+  width: 200px;
+  height: 180px;
+
+  @include desktop-up {
+    width: 496px;
+    height: 440px;
+  }
+}
+
+.testimonials__frame-background {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.testimonials__frame-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 1;
+}
+
+.testimonials__frame-mask {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+}
+
+.testimonials__frame-mask-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+// =============================================================================
+// CONTENT HOLDER STYLES
+// =============================================================================
+
+.testimonials__content-holder {
+  padding: $spacing-32;
+
+  width: 100%;
+
+  @include mobile {
+    padding: $spacing-16;
+  }
+}
+
+.testimonials__testimonial-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-32;
+}
+
+.testimonials__main-testimonial {
+  color: $color-grey-900;
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+  @include typography-h4;
+}
+
+.testimonials__person-details {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.testimonials__name {
+  font-size: 14px;
+  color: $color-grey-900;
+  margin: 0;
+  font-weight: $font-weight-semibold;
+
+  @include desktop-up {
+    font-size: $desktop-18pt-regular;
+  }
+}
+
+.testimonials__position {
+  color: $color-grey-500;
+  margin: 0;
+  @include typography-body-small;
+}
+
+// =============================================================================
+// INDICATORS STYLES
+// =============================================================================
+
+.testimonials__indicators {
+  display: flex;
+  gap: $spacing-8;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.testimonials__indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: $grox-violet-02;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 0;
+
+  &:hover {
+    background-color: $grox-violet-03;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $grox-violet-base;
+    outline-offset: 2px;
+  }
+
+  &.testimonials__indicator--active {
+    background-color: $grox-violet-base;
+  }
+}

@@ -1,0 +1,105 @@
+@use '../../../styles/main' as *;
+
+.testimonial-mover {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 1;
+
+  // Desktop - positioned on the right side
+  @include desktop-up {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 720px;
+    height: 100%;
+    left: auto;
+  }
+
+  // Mobile - positioned at the bottom with rotation
+  @include mobile {
+    bottom: -300px;
+    left: -200px;
+    right: 0;
+    height: auto;
+    
+    width: 800px;
+    transform: rotate(90deg);
+  }
+
+  &__group {
+    display: flex;
+    width: 100%;
+    animation: scroll-vertical 20s linear infinite;
+    gap: 0px;
+    position: absolute;
+    bottom: 0;
+
+    @include desktop-up {
+      flex-direction: column;
+      height: 100%;
+      right: 0;
+    }
+
+    @include mobile {
+      flex-direction: row;
+      width: 100%;
+      bottom: 0;
+    }
+  }
+
+  &__item {
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+
+    @include desktop-up {
+      height: auto;
+      width: 100%;
+    }
+
+    @include mobile {
+      width: auto;
+      height: 100%;
+    }
+
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+      opacity: 0.5;
+
+      @include desktop-up {
+        width: 100%;
+        height: auto;
+      }
+
+      @include mobile {
+        width: auto;
+        height: 100%;
+      }
+    }
+  }
+}
+
+// Vertical scrolling keyframes for desktop
+@keyframes scroll-vertical {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-50%);
+  }
+}
+
+// Horizontal scrolling keyframes for mobile (after rotation)
+@keyframes scroll-horizontal {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

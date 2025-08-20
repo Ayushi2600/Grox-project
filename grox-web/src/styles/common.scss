@@ -1,0 +1,123 @@
+// =============================================================================
+// COMMON CSS FILE
+// =============================================================================
+
+@use './main.scss' as *;
+
+.loader_style {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  flex-direction: column;
+  background: $color-grey-1000;
+  .text-loading {
+    font-size: $spacing-20;
+    margin-top: $spacing-8;
+    font-weight: $font-weight-regular;
+  }
+}
+
+.success-msg {
+  color: $grox-green-08 !important;
+}
+.go-back-btn {
+  width: fit-content;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+  color: $color-black;
+  font-size: $desktop-16pt-regular;
+  font-weight: $font-weight-regular;
+  cursor: pointer;
+}
+
+button.auth-form-submit-btn {
+  width: 100%;
+  height: 52px;
+  padding: 0 $spacing-24;
+  font-size: $desktop-16pt-regular !important;
+  font-weight: $font-weight-regular;
+  border-color: $grox-poppy-06 !important;
+  border-radius: $spacing-32;
+  background-color: $grox-poppy-06 !important;
+  color: $color-white !important;
+  @include mobile {
+    font-size: $mobile-16pt-regular;
+  }
+}
+
+.blank-btn {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  font-size: $desktop-16pt-regular;
+  font-weight: $font-weight-regular;
+  border: 1px solid $color-grey-1500;
+  color: $color-grey-1600;
+  border-radius: $spacing-32;
+  background: $color-white;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(16, 24, 40, 0.05);
+  img,
+  svg {
+    margin-right: $spacing-8;
+  }
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(16, 24, 40, 0.08);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(16, 24, 40, 0.02);
+  }
+}
+
+.validation-error-txt {
+  font-size: $desktop-16pt-regular;
+  font-weight: $font-weight-regular;
+  color: $grox-error;
+  line-height: $line-height-tight;
+  margin-bottom: $spacing-0;
+  @include mobile {
+    font-size: $mobile-16pt-regular;
+  }
+}
+
+.form-heading {
+  margin-top: $spacing-0;
+  margin-bottom: $spacing-24;
+  font-size: $desktop-24pt-light;
+  font-weight: $font-weight-semibold;
+  color: $color-grey-1100;
+  line-height: $line-height-normal;
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+.center-container-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $color-grey-1000;
+  background-image: url('../images/Mask_group.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+}
+
+.verification-container {
+  max-width: 676px;
+  border: 2px solid $color-white;
+  border-radius: $spacing-16;
+  padding: $spacing-128 $spacing-48;
+  background: #f6f6f6cc;
+}

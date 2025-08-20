@@ -1,0 +1,107 @@
+// =============================================================================
+// OTP SCREEN WRAPER COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.OTPScreenWraper {
+  &.email-verfy-screen {
+    background-size: unset !important;
+    background-position: left bottom calc(100% - 120px) !important;
+  }
+
+  .logo-div {
+    text-align: center;
+  }
+  .input-box-main-card {
+    background-color: $color-white;
+    padding: 30px;
+    border-radius: $spacing-8;
+    .otp-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 515px;
+      .blankLine {
+        display: block;
+        height: 1px;
+        width: $spacing-32;
+        background: $color-grey-1400;
+      }
+    }
+  }
+
+  .label-text,
+  .label-value {
+    color: $color-grey-1700;
+    font-size: $desktop-16pt-regular;
+    font-weight: $font-weight-regular;
+    margin: $spacing-0;
+    @include mobile {
+      font-size: $mobile-16pt-regular;
+    }
+  }
+  .label-value {
+    font-weight: $font-weight-bold;
+    margin: $spacing-8 $spacing-0 $spacing-20;
+  }
+  input.otp-box {
+    height: 54px;
+    width: 54px;
+    padding: 0 10px;
+    border: 1px solid $color-grey-1500;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: $font-weight-regular;
+    font-family: $font-family-primary;
+    background-color: $color-grey-1900;
+    color: $color-black;
+    text-align: center;
+    @include transition(all, 0.2s, ease-in-out);
+
+    @include mobile {
+      font-size: $mobile-16pt-regular;
+    }
+
+    &::placeholder {
+      color: $color-grey-400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $grox-blue-base;
+      box-shadow: 0 0 0 2px rgba(33, 162, 254, 0.1);
+    }
+
+    &.error {
+      border-color: $grox-poppy-02;
+      background-color: $grox-poppy-01;
+      color: $grox-poppy-07;
+    }
+    &.verify {
+      border-color: $grox-green-02;
+      background-color: $grox-green-01;
+      color: $grox-green-08;
+    }
+  }
+
+  .resend-and-back {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-32 $spacing-0;
+    .resend {
+      font-size: $desktop-14pt-regular;
+      font-weight: $font-weight-regular;
+      color: $color-black;
+      line-height: $line-height-normal;
+      &.btn {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .seconds {
+        color: $grox-poppy-06;
+      }
+    }
+  }
+}

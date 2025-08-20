@@ -1,0 +1,191 @@
+// =============================================================================
+// LOGIN SIGNUP WRAPER COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.LoginSignUpWraper {
+  display: flex;
+  min-height: 100vh;
+  background: $color-grey-1000;
+  .col-section {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: $spacing-64;
+  }
+
+  .wraper-form-container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  .center-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 30px 0px 30px 30px;
+    .form-container {
+      background: $color-white;
+      border-radius: $spacing-8;
+      padding: $spacing-40;
+      min-width: 600px;
+      max-width: 700px;
+      width: 100%;
+      .form-group {
+        margin-bottom: $spacing-12;
+      }
+    }
+  }
+
+  .password-input-container {
+    position: relative;
+    input {
+      padding-left: 45px;
+    }
+    .password-toggle {
+      padding: 5px 12px;
+      position: absolute;
+      left: $spacing-0;
+      bottom: $spacing-0;
+      top: $spacing-0;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+    }
+  }
+
+  label {
+    display: block;
+    margin-bottom: $spacing-4;
+    font-size: $desktop-14pt-regular;
+    font-weight: $font-weight-bold;
+    color: $color-grey-1200;
+    line-height: $line-height-normal;
+
+    @include mobile {
+      font-size: $mobile-14pt-regular;
+    }
+  }
+
+  input {
+    height: 42px;
+    width: 100%;
+    padding: 0 $spacing-16;
+    border: 1px solid $color-grey-200;
+    border-radius: $spacing-8;
+    font-size: $desktop-16pt-regular;
+    font-family: $font-family-primary;
+    background-color: $color-white;
+    color: $color-grey-900;
+    font-weight: $font-weight-regular;
+    @include transition(all, 0.2s, ease-in-out);
+
+    @include mobile {
+      font-size: $mobile-16pt-regular;
+    }
+
+    &::placeholder {
+      color: $color-grey-400;
+    }
+
+    &:focus {
+      outline: none;
+      border-color: $color-grox-poppy-base;
+      box-shadow: 0 0 0 3px rgba(213, 66, 65, 0.1);
+    }
+
+    &:disabled {
+      background-color: $color-grey-100;
+      color: $color-grey-500;
+      cursor: not-allowed;
+    }
+
+    &--error {
+      border-color: $grox-error;
+
+      &:focus {
+        border-color: $grox-error;
+        box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+      }
+    }
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    margin: 25px 0;
+
+    span {
+      margin: 0 10px;
+      font-size: $desktop-14pt-regular;
+      font-weight: $font-weight-regular;
+      color: $color-grey-1300;
+    }
+
+    &::before,
+    &::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: $color-grey-1400;
+    }
+  }
+
+  .auth-form__actions {
+    display: flex;
+    flex-direction: column;
+    margin-top: $spacing-20;
+  }
+
+  .link-text {
+    font-weight: $font-weight-regular;
+    font-size: $mobile-16pt-regular;
+    color: $color-grey-1700;
+    text-align: center;
+    margin-top: $spacing-32;
+    a {
+      color: $color-grox-poppy-base;
+      text-decoration: none;
+    }
+  }
+  .terms-text {
+    text-align: center;
+    margin-bottom: $spacing-0;
+    color: $color-grey-1700;
+    a {
+      color: $color-grey-1700;
+    }
+  }
+
+  .email-text {
+    color: $color-grey-1800;
+    font-weight: $font-weight-regular;
+    font-size: $desktop-16pt-regular;
+  }
+  .forgot-div {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 5px;
+
+    .forgot-password {
+      font-size: $desktop-16pt-regular;
+      font-weight: $font-weight-regular;
+      color: $color-grey-1300;
+      cursor: pointer;
+      margin: 0px;
+      white-space: nowrap;
+      &:hover {
+        color: $color-grey-1700;
+      }
+      @include mobile {
+        font-size: $mobile-16pt-regular;
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+// =============================================================================
+// LANDING PAGE COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.landing-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $color-white 0%, $color-grey-50 100%);
+}
+
+.landing-page__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $container-padding-mobile;
+
+  @include tablet-up {
+    padding: 0 $container-padding-tablet;
+  }
+
+  @include desktop-up {
+    padding: 0 $container-padding-desktop;
+  }
+}
+
+.landing-page__content {
+  padding: $spacing-8 $spacing-16;
+}
+
+// =============================================================================
+// SKIP TO MAIN CONTENT
+// =============================================================================
+
+.skip-to-main {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: $color-grox-poppy-base;
+  color: $color-white;
+  padding: $spacing-8 $spacing-16;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1001;
+  font-family: $font-family-primary;
+  font-size: $desktop-14pt-regular;
+  font-weight: $font-weight-medium;
+
+  &:focus {
+    top: 6px;
+  }
+}

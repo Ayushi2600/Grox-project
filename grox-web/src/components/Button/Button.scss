@@ -1,0 +1,156 @@
+// =============================================================================
+// BUTTON COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// =============================================================================
+// BUTTON BASE
+// =============================================================================
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-8;
+  border-radius: 12px;
+  font-family: $font-family-primary;
+  font-weight: $font-weight-medium;
+  font-size: $desktop-16pt-regular;
+  line-height: 1.5;
+  text-decoration: none;
+  cursor: pointer;
+  @include transition(all, 0.2s, ease-in-out);
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+
+  // Focus styles for accessibility
+  @include focus-visible;
+
+  // Disabled state
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  // Loading state
+  &--loading {
+    cursor: wait;
+    pointer-events: none;
+  }
+}
+
+// =============================================================================
+// BUTTON SIZES
+// =============================================================================
+
+.button--sm {
+  height: $button-height-40;
+  padding: 0 $spacing-16;
+  font-size: $desktop-14pt-regular;
+}
+
+.button--md {
+  height: $button-height-48;
+  padding: 0 $spacing-24;
+  font-size: $desktop-16pt-regular;
+}
+
+.button--lg {
+  height: $button-height-56;
+  padding: 0 $spacing-32;
+  font-size: $desktop-18pt-regular !important;
+}
+
+// =============================================================================
+// BUTTON VARIANTS
+// =============================================================================
+
+.button--primary {
+  background-color: $color-grox-poppy-base;
+  color: $color-white;
+  border-color: $color-grox-poppy-base;
+
+  &:hover:not(:disabled) {
+    background-color: $color-grox-poppy-dark;
+    border-color: $color-grox-poppy-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(213, 66, 65, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(213, 66, 65, 0.2);
+  }
+}
+
+.button--secondary {
+  background-color: $color-white; 
+  color: $color-grox-poppy-base;
+  border-color: $color-grox-poppy-base;
+
+  &:hover:not(:disabled) {
+    background-color: $color-grox-poppy-base;
+    color: $color-white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(213, 66, 65, 0.2);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(213, 66, 65, 0.1);
+  }
+}
+
+.button--ghost {
+  background-color: transparent;
+  color: $color-grox-poppy-base;
+  border-color: transparent;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(213, 66, 65, 0.1);
+    transform: translateY(-1px);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    background-color: rgba(213, 66, 65, 0.15);
+  }
+}
+
+// =============================================================================
+// BUTTON ELEMENTS
+// =============================================================================
+
+.button__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.button__spinner {
+  animation: spin 1s linear infinite;
+  width: 16px;
+  height: 16px;
+}

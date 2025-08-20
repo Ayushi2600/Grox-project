@@ -1,0 +1,314 @@
+// =============================================================================
+// EXCHANGE CONTAINER COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.exchange-container {
+  display: flex;
+  align-items: flex-end;
+  gap: $spacing-8;
+  width: 100%;
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+}
+
+// Side Panel
+.exchange-container__side {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.exchange-container__stats {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  gap: $spacing-8;
+  text-align: center;
+}
+
+.exchange-container__stat {
+  background-color: $color-white;
+  padding: $spacing-12;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-4;
+}
+
+.exchange-container__stat-number {
+  color: $grox-poppy-06;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  @include typography-h4;
+}
+
+.exchange-container__stat-label {
+  color: $color-grey-700;
+  margin: 0;
+  @include typography-body-small;
+}
+
+.exchange-container__flags {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 152px;
+  /* 6 flags × 32px - 5 overlaps × 8px = 192 - 40 = 152px */
+  height: 32px;
+  overflow: hidden;
+}
+
+.exchange-container__flag {
+  width: 32px;
+  height: 32px;
+  border-radius: 48px;
+  background-color: #f7f7f7;
+  border: 1px solid $color-white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 2px;
+  overflow: hidden;
+}
+
+.exchange-container__flag-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+// Exchange Main
+.exchange-container__main {
+  background-color: $color-white;
+  border-radius: 16px;
+  gap: $spacing-24;
+  display: flex;
+  flex-direction: column;
+  max-width: 312px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+
+  @include mobile {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+// Grox Input Section
+.exchange-container__input-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  gap: $spacing-16;
+  padding: $spacing-16;
+  padding-bottom: $spacing-0;
+}
+
+.search-coin-input {
+  padding-top: 0px;
+  input {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+.exchange-container__grox-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-8;
+}
+
+.exchange-container__grox-logo {
+  margin: 0;
+  height: 24px;
+}
+
+.exchange-container__grox-text {
+  color: $grox-blue-08;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 0;
+}
+
+.exchange-container__grox-input {
+  width: 160px;
+  height: 46px;
+  border: 0.5px solid #dddddd;
+  background-color: $color-white;
+  color: $color-grey-900;
+  border-radius: 8px;
+  padding: 0 $spacing-12;
+  font-size: 18px;
+  font-weight: $font-weight-medium;
+  text-align: right;
+  outline: none;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &:focus {
+    border-color: $grox-blue-base;
+    box-shadow: 0 0 0 2px rgba(33, 162, 254, 0.1);
+  }
+
+  &::placeholder {
+    color: $color-grey-400;
+  }
+}
+
+// Divider
+.exchange-container__divider {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+}
+
+// Exchange Rates List
+.exchange-container__rates-list {
+  padding: $spacing-0 $spacing-16;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+  max-height: 230px;
+  overflow: auto;
+  p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1;
+  }
+  &.all-show {
+    min-height: 230px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $color-grey-100;
+    border-radius: 3px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $color-grey-300;
+    border-radius: 3px;
+
+    &:hover {
+      background: $color-grey-400;
+    }
+  }
+}
+
+.exchange-container__rate-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $spacing-16;
+  width: 100%;
+}
+
+.exchange-container__rate-info {
+  display: flex;
+  align-items: center;
+  gap: $spacing-8;
+}
+
+.exchange-container__rate-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.exchange-container__rate-currency {
+  color: $color-grey-900;
+  font-weight: $font-weight-medium;
+  margin: 0;
+  @include typography-body;
+}
+
+.exchange-container__rate-value {
+  color: $color-grey-900;
+  font-weight: $font-weight-semibold;
+  margin: 0;
+  @include typography-body;
+}
+
+// Toggle Button
+.toggle-btn-container {
+  padding: $spacing-16;
+  padding-top: $spacing-0;
+}
+.exchange-container__toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-16;
+  width: 100%;
+  padding: $spacing-12 $spacing-16;
+  border-radius: 8px;
+  border: 0.5px solid $color-grey-200;
+  background-color: transparent;
+  color: $color-grey-600;
+  font-size: $desktop-14pt-regular;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &:hover {
+    background-color: $color-grey-50;
+    border-color: $color-grey-300;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $grox-blue-base;
+    box-shadow: 0 0 0 2px rgba(33, 162, 254, 0.1);
+  }
+}
+
+.exchange-container__toggle-icon {
+  @include transition(transform, 0.2s, ease-in-out);
+
+  &--flipped {
+    transform: rotate(180deg);
+  }
+}
+
+// Responsive adjustments
+@include mobile {
+  .exchange-container__main {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .exchange-container__grox-input {
+    width: 120px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .exchange-container__grox-text {
+    font-size: 16px;
+  }
+}

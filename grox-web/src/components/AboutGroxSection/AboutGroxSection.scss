@@ -1,0 +1,248 @@
+// =============================================================================
+// ABOUT GROX SECTION COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.about-grox-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: $section-padding-mobile 0;
+  overflow: hidden;
+
+  @include desktop-up {
+    padding: 64px 72px;
+  }
+}
+
+// Background Images
+.about-grox-section__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.about-grox-section__bg-desktop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: none;
+
+  @include desktop-up {
+    display: block;
+  }
+}
+
+.about-grox-section__bg-mobile {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  @include desktop-up {
+    display: none;
+  }
+}
+
+// Linear Overlay
+.about-grox-section__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  @include mobile {
+    align-items: flex-end;
+    justify-content: center;
+  }
+}
+
+.about-grox-section__overlay-image {
+  @include mobile {
+    width: 1173px;
+    height: 772px;
+    object-fit: contain;
+    object-position: bottom center;
+    transform: rotate(90deg);
+  }
+
+  @include desktop-up {
+    transform: rotate(0deg);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+// Content Container
+.about-grox-section__container {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 720px;
+  margin-right: 0;
+  margin-left: auto;
+  padding: 0 $container-padding-mobile;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-40;
+
+  @include desktop-up {
+    padding: 0 $container-padding-desktop;
+  }
+}
+
+// Header Group
+.about-grox-section__header {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  text-align: left;
+}
+
+.about-grox-section__title {
+  color: $color-white;
+  margin: 0;
+  font-weight: $font-weight-bold;
+  text-align: left;
+  @include typography-h3;
+
+  @include desktop-up {
+    @include typography-h3;
+  }
+}
+
+.about-grox-section__subtitle {
+  color: $color-white;
+  margin: 0;
+  line-height: $line-height-relaxed;
+  opacity: 0.9;
+  text-align: left;
+  
+  @include typography-body-small;
+  @include desktop-up {
+    font-size: 14px;
+  }
+
+  @include mobile {
+    font-size: 12px;
+  }
+}
+
+// Reasons Items Group
+.about-grox-section__reasons {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+
+  @include desktop-up {
+    gap: $spacing-32;
+  }
+}
+
+.about-grox-section__reason-item {
+  display: flex;
+  align-items: flex-start;
+  gap: $spacing-16;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+
+  &.about-grox-section__reason-item--visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.about-grox-section__reason-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  @include desktop-up {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.about-grox-section__icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.about-grox-section__reason-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  flex: 1;
+}
+
+.about-grox-section__reason-subheader {
+  font-size: 16px;
+  color: $color-white;
+  margin: 0;
+  font-weight: bold;
+  line-height: $line-height-tight;
+
+  @include desktop-up {
+    @include typography-h5;
+  }
+}
+
+.about-grox-section__reason-body {
+  font-size: 12px;
+  color: $color-white;
+  margin: 0;
+  line-height: $line-height-relaxed;
+  opacity: 0.9;
+
+  @include desktop-up {
+    font-size: 14px;
+  }
+}
+
+// Responsive adjustments
+@include mobile {
+  .about-grox-section {
+    justify-content: center;
+  }
+
+  .about-grox-section__container {
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .about-grox-section__header {
+    text-align: center;
+  }
+
+  .about-grox-section__reason-item {
+    gap: $spacing-12;
+  }
+}

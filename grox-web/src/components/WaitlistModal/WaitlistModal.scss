@@ -1,0 +1,515 @@
+// =============================================================================
+// WAITLIST MODAL COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+// =============================================================================
+// ANIMATIONS
+// =============================================================================
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// =============================================================================
+// MODAL BACKDROP
+// =============================================================================
+
+.waitlist-modal__backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-16;
+  animation: modalFadeIn 0.3s ease-out;
+
+  @include desktop-up {
+    padding: $spacing-32;
+  }
+}
+
+// =============================================================================
+// MODAL CONTAINER
+// =============================================================================
+
+.waitlist-modal {
+  background-color: $color-white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 1056px;
+  max-height: 90vh;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s ease-out;
+  position: relative;
+
+  @include mobile {
+    max-width: 100%;
+    border-radius: 12px;
+  }
+}
+
+// =============================================================================
+// TWO-SIDE LAYOUT
+// =============================================================================
+
+.waitlist-modal__sides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
+// =============================================================================
+// SIDE 1: GRADIENT BACKGROUND WITH CONTENT
+// =============================================================================
+
+.waitlist-modal__side--left {
+  width: 50%;
+  background: linear-gradient(180deg, #5d1f84 0%, #d54241 100%);
+  padding: $spacing-40;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.waitlist-modal__gradient-bg {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.waitlist-modal__bg-image {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+}
+
+.waitlist-modal__content-holder {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  gap: 160px;
+}
+
+.waitlist-modal__logo {
+  width: 40px;
+  height: auto;
+  margin-bottom: $spacing-32;
+}
+
+.waitlist-modal__text-holder {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+  flex-grow: 1;
+}
+
+.waitlist-modal__subtitle {
+  font-size: 24px;
+  font-weight: $font-weight-medium;
+  color: $color-white;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.waitlist-modal__title-text {
+  font-size: 40px;
+  font-weight: $font-weight-bold;
+  color: $color-white;
+  margin: 0;
+  line-height: $line-height-tight;
+}
+
+.waitlist-modal__placeholder {
+  height: 20px;
+  opacity: 0;
+}
+
+// =============================================================================
+// SIDE 2: FORM WITH HEADER
+// =============================================================================
+
+.waitlist-modal__side--right {
+  width: 50%;
+  background-color: $color-white;
+  padding: $spacing-16;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+
+  @include mobile {
+    width: 100%;
+    padding: $spacing-16;
+  }
+}
+
+// =============================================================================
+// HEADER INSIDE RIGHT SIDE
+// =============================================================================
+
+.waitlist-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  @include desktop-up {
+     display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  }
+}
+
+.waitlist-modal__title {
+  font-size: 32px;
+  font-weight: $font-weight-semibold;
+  color: $color-grey-900;
+  margin: 0;
+  line-height: $line-height-tight;
+  opacity: 0;
+
+  @include mobile {
+    font-size: $mobile-h3-24;
+    opacity: 0;
+  }
+}
+
+.waitlist-modal__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background-color: $color-grey-100;
+  border-radius: 8px;
+  cursor: pointer;
+  @include transition(all, 0.2s, ease-in-out);
+  color: $color-grey-600;
+
+  &:hover {
+    background-color: $color-grey-200;
+    color: $color-grey-800;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-grox-poppy-base;
+    outline-offset: 2px;
+  }
+}
+
+// =============================================================================
+// FORM CONTAINER
+// =============================================================================
+
+.waitlist-modal__form-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: $spacing-40;
+  gap: $spacing-16;
+
+  @include mobile {
+    padding: 0;
+  }
+}
+
+.waitlist-modal__description {
+  font-size: $desktop-16pt-regular;
+  color: $color-grey-600;
+  margin-bottom: $spacing-32;
+  line-height: $line-height-relaxed;
+  text-align: left;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @include mobile {
+    font-size: $mobile-16pt-regular;
+    margin: 0;
+    margin-top: $spacing-16;
+  }
+}
+
+// =============================================================================
+// FEEDBACK CONTAINER
+// =============================================================================
+
+.waitlist-modal__feedback-container {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-40;
+
+  @include mobile {
+    padding: $spacing-24;
+  }
+}
+
+.waitlist-modal__feedback-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-16;
+  max-width: 400px;
+}
+
+.waitlist-modal__feedback-icon {
+  width: 104px;
+  height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @include mobile {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.waitlist-modal__feedback-text {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+  max-width: 300px;
+}
+
+.waitlist-modal__feedback-title {
+  font-size: $desktop-h3-36;
+  font-weight: $font-weight-bold;
+  color: $color-grey-900;
+  line-height: $line-height-tight;
+  margin: 0;
+
+  @include mobile {
+    font-size: $mobile-h3-24;
+  }
+}
+
+.waitlist-modal__feedback-description {
+  font-size: $desktop-14pt-regular;
+  font-weight: $font-weight-regular;
+  color: $color-grey-600;
+  line-height: $line-height-normal;
+  margin: 0;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+// =============================================================================
+// FORM STYLES
+// =============================================================================
+
+.waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-24;
+  flex-grow: 1;
+
+  @include mobile {
+    gap: $spacing-16;
+  }
+}
+
+.waitlist-form__row {
+  display: flex;
+  flex-direction: row;
+  gap: $spacing-16;
+  width: 100%;
+
+  > * {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  @include desktop-up {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.waitlist-form__field {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-8;
+}
+
+.waitlist-form__label {
+  font-size: $desktop-14pt-regular;
+  font-weight: $font-weight-medium;
+  color: $color-grey-700;
+  line-height: $line-height-normal;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+.waitlist-form__input,
+.waitlist-form__select {
+  height: 48px;
+  padding: 0 $spacing-16;
+  border: 2px solid $color-grey-200;
+  border-radius: 12px;
+  font-size: $desktop-16pt-regular;
+  font-family: $font-family-primary;
+  background-color: $color-white;
+  color: $color-grey-900;
+  @include transition(all, 0.2s, ease-in-out);
+
+  @include mobile {
+    font-size: $mobile-16pt-regular;
+  }
+
+  &::placeholder {
+    color: $color-grey-400;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-grox-poppy-base;
+    box-shadow: 0 0 0 3px rgba(213, 66, 65, 0.1);
+  }
+
+  &:disabled {
+    background-color: $color-grey-100;
+    color: $color-grey-500;
+    cursor: not-allowed;
+  }
+
+  &--error {
+    border-color: $grox-error;
+
+    &:focus {
+      border-color: $grox-error;
+      box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.1);
+    }
+  }
+}
+
+.waitlist-form__select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right $spacing-12 center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: $spacing-40;
+}
+
+.waitlist-form__error {
+  font-size: $desktop-14pt-regular;
+  color: $grox-error;
+  line-height: $line-height-normal;
+
+  @include mobile {
+    font-size: $mobile-14pt-regular;
+  }
+}
+
+// =============================================================================
+// FORM ACTIONS
+// =============================================================================
+
+.waitlist-form__actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-16;
+}
+
+.waitlist-form__submit {
+  width: 100%;
+  height: 56px;
+  font-size: $desktop-18pt-regular !important;
+  border-radius: 48px;
+  padding: 0 $spacing-24;
+  background-color: $color-grox-poppy-base !important;
+  color: $color-white !important;
+  border-color: $color-grox-poppy-base !important;
+
+  &:hover:not(:disabled) {
+    background-color: $color-grox-poppy-dark !important;
+    border-color: $color-grox-poppy-dark !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(213, 66, 65, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(213, 66, 65, 0.2);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  @include mobile {
+    font-size: $mobile-18pt-regular !important;
+  }
+}
+
+// =============================================================================
+// RESPONSIVE ADJUSTMENTS
+// =============================================================================
+
+@include mobile {
+  .waitlist-modal {
+    margin: $spacing-16;
+    max-height: calc(100vh - 32px);
+  }
+
+  .waitlist-modal__backdrop {
+    padding: $spacing-8;
+  }
+}

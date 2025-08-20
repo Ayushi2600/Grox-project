@@ -1,0 +1,223 @@
+// =============================================================================
+// FOR BUSINESSES COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.for-businesses {
+  padding: $section-padding-mobile 0;
+  background-color: #0e2b4f;
+  position: relative;
+  padding: $container-padding-mobile;
+
+  @include desktop-up {
+    padding: $section-padding-desktop;
+  }
+
+  &__bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    opacity: 0.8;
+  }
+}
+
+.for-businesses__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  z-index: 2;
+  width: 100%;
+  position: relative;
+
+  @include desktop-up {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 120px;
+  }
+}
+
+.for-businesses__container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  gap: $spacing-24;
+  padding: 0;
+  position: relative;
+  z-index: 2;
+
+  @include desktop-up {
+    flex-direction: column;
+    align-items: left;
+    justify-content: space-between;
+    gap: $spacing-48;
+  }
+
+  &__pill {
+    padding: $spacing-12 $spacing-8;
+    color: $grox-blue-base;
+    text-transform: uppercase;
+    display: flex;
+    width: fit-content;
+    margin: 0;
+
+    p {
+      color: $grox-blue-base !important;
+      font-weight: bold !important;
+      margin: 0;
+      font-weight: $font-weight-medium;
+      font-size: $mobile-14pt-regular;
+      line-height: $line-height-normal;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    gap: $spacing-8;
+
+    @include desktop-up {
+      gap: 16px;
+    }
+  }
+
+  &__title {
+    color: $color-white;
+    line-height: 1.5;
+    margin: 0;
+    @include typography-h3;
+    @include desktop-up {
+      @include typography-h2;
+      font-weight: 600;
+    }
+  }
+
+  p {
+    color: $color-white;
+    margin: 0;
+    @include typography-body-small;
+  }
+
+  &__button {
+    background-color: $grox-blue-base;
+    color: $color-white;
+    padding: $spacing-8 $spacing-16;
+    margin: 0;
+    border-radius: $spacing-48;
+    width: 70%;
+    border: none;
+    cursor: pointer;
+    @include typography-body-small;
+
+    &:hover {
+      background-color: $grox-blue-05;
+      transform: translateY(-1px);
+    }
+
+    @include desktop-up {
+      padding: $spacing-12 $spacing-24;
+      width: 320px;
+    }
+  }
+}
+
+.for-businesses__img-desktop {
+  display: none;
+  position: relative;
+  z-index: 2;
+
+  @include desktop-up {
+    display: block;
+    width: 100%;
+  }
+}
+
+.for-businesses__img-mobile {
+  display: block;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+
+  @include desktop-up {
+    display: none;
+  }
+}
+
+.for-businesses__header {
+  text-align: center;
+  margin: 0;
+}
+
+.for-businesses__title {
+  color: $color-grey-900;
+  margin-bottom: $spacing-16;
+  @include typography-h2;
+}
+
+.for-businesses__description {
+  color: $color-grey-600;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+  @include typography-body-large;
+}
+
+.for-businesses__features {
+  display: grid;
+  gap: $spacing-32;
+
+  @include tablet-up {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-48;
+  }
+}
+businesses__cta {
+  text-align: center;
+  margin-top: $spacing-48;
+}
+
+.for-businesses__cta-button {
+  border-radius: 12px;
+  padding: $spacing-16 $spacing-32;
+  font-size: $desktop-16pt-regular;
+  font-weight: $font-weight-semibold;
+  cursor: pointer;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &--primary {
+    background: linear-gradient(
+      135deg,
+      $color-grox-poppy-base 0%,
+      $color-grox-violet-base 100%
+    );
+    color: $color-white;
+    border: none;
+    margin-right: $spacing-16;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(213, 66, 65, 0.3);
+    }
+  }
+
+  &--secondary {
+    background: transparent;
+    color: $color-grey-900;
+    border: 2px solid $color-grey-200;
+
+    &:hover {
+      border-color: $color-grey-300;
+      background-color: $color-grey-50;
+    }
+  }
+}

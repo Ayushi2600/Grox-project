@@ -1,0 +1,871 @@
+// =============================================================================
+// GROX MONEY DESIGN SYSTEM - MAIN SASS FILE
+// =============================================================================
+
+// Import Geist font from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&display=swap');
+
+// =============================================================================
+// VARIABLES
+// =============================================================================
+
+// Colors
+$color-white: #ffffff;
+$color-black: #000000;
+
+// Grey scale
+$color-grey-50: #f9fafb;
+$color-grey-100: #f3f4f6;
+$color-grey-200: #e5e7eb;
+$color-grey-300: #d1d5db;
+$color-grey-400: #9ca3af;
+$color-grey-500: #6b7280;
+$color-grey-600: #4b5563;
+$color-grey-700: #374151;
+$color-grey-800: #1f2937;
+$color-grey-900: #111827;
+$color-grey-1000: #f6f6f6;
+$color-grey-1100: #111011;
+$color-grey-1200: #344054;
+$color-grey-1300: #868686;
+$color-grey-1400: #efefef;
+$color-grey-1500: #dddddd;
+$color-grey-1600: #1f1f1f;
+$color-grey-1700: #444444;
+$color-grey-1800: #101828;
+$color-grey-1900: #fbfbfb;
+$color-grey-2000: #bbbbbb;
+$color-grey-2100: #171616;
+$color-grey-2200: #12141d;
+
+// Grox brand colors
+
+$color-grox-poppy-base: #d54241;
+$color-grox-poppy-light: #e85a59;
+$color-grox-poppy-dark: #b83a39;
+$color-grox-violet-base: #9f49d4;
+$color-grox-violet-light: #b366e0;
+
+// 🔴 Grox Poppy
+$grox-poppy-10: #ad1519;
+$grox-poppy-09: #db4446;
+$grox-poppy-08: #861d1d;
+$grox-poppy-07: #a72525;
+$grox-poppy-06: #c92c2c;
+$grox-poppy-base: #d54241;
+$grox-poppy-05: #de6868;
+$grox-poppy-04: #e58a8a;
+$grox-poppy-03: #edabab;
+$grox-poppy-02: #f4cdcd;
+$grox-poppy-01: #fbeeee;
+
+// 🟣 Grox Violet
+$grox-violet-08: #5d1f84;
+$grox-violet-07: #7527a5;
+$grox-violet-06: #822bb8;
+$grox-violet-base: #9f49d4;
+$grox-violet-05: #b06adc;
+$grox-violet-04: #c28be4;
+$grox-violet-03: #d3acec;
+$grox-violet-02: #e5cdf3;
+$grox-violet-01: #f6eefb;
+
+// 🔵 Grox Blue
+$grox-blue-08: #015fa2;
+$grox-blue-07: #0177cb;
+$grox-blue-06: #018ff4;
+$grox-blue-base: #21a2fe;
+$grox-blue-05: #48b2fe;
+$grox-blue-04: #71c3fe;
+$grox-blue-03: #9ad4fe;
+$grox-blue-02: #c2e5ff;
+$grox-blue-01: #ebf6ff;
+
+// 🟢 Grox Green
+$grox-green-08: #11924f;
+$grox-green-07: #15b763;
+$grox-green-06: #1adb77;
+$grox-green-base: #36e78c;
+$grox-green-05: #5beca1;
+$grox-green-04: #7ff0b6;
+$grox-green-03: #a4f4cb;
+$grox-green-02: #c8f9e0;
+$grox-green-01: #edfdf5;
+
+// ✅ Action Colors
+$grox-success: #36cc4f;
+$grox-error: #ff0000;
+
+// Background colors
+$color-bg-light: #fafafa;
+$color-bg-dark: #1a1a1a;
+
+// =============================================================================
+// TYPOGRAPHY
+// =============================================================================
+
+// Font families
+$font-family-primary: 'Geist', sans-serif;
+$font-family-secondary: 'Geist', sans-serif;
+
+// Font weights
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+$font-weight-extrabold: 800;
+
+// Desktop Header Font Sizes
+$desktop-h1-64: 64px;
+$desktop-h1-72: 72px;
+$desktop-h2-48: 48px;
+$desktop-h3-36: 36px;
+$desktop-h4-30: 30px;
+$desktop-h4-20: 20px;
+$desktop-h5-24: 24px;
+$desktop-h6-20: 20px;
+$desktop-h7-18: 18px;
+
+// Mobile Header Font Sizes
+$mobile-h1-36: 36px;
+$mobile-h2-30: 30px;
+$mobile-h3-24: 24px;
+$mobile-h4-20: 20px;
+$mobile-h5-18: 18px;
+$mobile-h6-16: 16px;
+$mobile-h7-14: 14px;
+
+// Desktop Body Font Sizes
+$desktop-24pt-regular: 24px;
+$desktop-24pt-light: 24px;
+$desktop-20pt-regular: 20px;
+$desktop-20pt-light: 20px;
+$desktop-18pt-regular: 18px;
+$desktop-18pt-light: 18px;
+$desktop-16pt-regular: 16px;
+$desktop-16pt-light: 16px;
+$desktop-14pt-regular: 14px;
+$desktop-14pt-light: 14px;
+
+// Mobile Body Font Sizes
+$mobile-18pt-regular: 18px;
+$mobile-18pt-light: 18px;
+$mobile-16pt-regular: 16px;
+$mobile-16pt-light: 16px;
+$mobile-14pt-regular: 14px;
+$mobile-14pt-light: 14px;
+
+// Line heights
+$line-height-tight: 1.2;
+$line-height-normal: 1.5;
+$line-height-relaxed: 1.6;
+$line-height-loose: 1.8;
+
+// Letter spacing
+$letter-spacing-tight: -0.025em;
+$letter-spacing-normal: 0;
+$letter-spacing-wide: 0.025em;
+$letter-spacing-wider: 0.05em;
+
+// =============================================================================
+// SPACING
+// =============================================================================
+
+// Base spacing unit (4px)
+$spacing-unit: 4px;
+
+// Spacing scale (multiples of 4px)
+$spacing-0: 0;
+$spacing-4: $spacing-unit; // 4px
+$spacing-8: $spacing-unit * 2; // 8px
+$spacing-12: $spacing-unit * 3; // 12px
+$spacing-16: $spacing-unit * 4; // 16px
+$spacing-20: $spacing-unit * 5; // 20px
+$spacing-24: $spacing-unit * 6; // 24px
+$spacing-32: $spacing-unit * 8; // 32px
+$spacing-40: $spacing-unit * 10; // 40px
+$spacing-48: $spacing-unit * 12; // 48px
+$spacing-64: $spacing-unit * 16; // 64px
+$spacing-80: $spacing-unit * 20; // 80px
+$spacing-96: $spacing-unit * 24; // 96px
+$spacing-128: $spacing-unit * 32; // 128px
+
+// Button heights
+$button-height-40: 40px;
+$button-height-48: 48px;
+$button-height-56: 56px;
+
+// Container padding
+$container-padding-mobile: $spacing-16;
+$container-padding-tablet: $spacing-24;
+$container-padding-desktop: $spacing-32;
+
+// Section padding
+$section-padding-mobile: $spacing-64;
+$section-padding-desktop: $spacing-96;
+
+// Gutter spacing
+$gutter-mobile: $spacing-24;
+$gutter-tablet: $spacing-32;
+$gutter-desktop: $spacing-48;
+
+// =============================================================================
+// BREAKPOINTS
+// =============================================================================
+
+$breakpoint-640: 640px;
+$breakpoint-768: 768px;
+$breakpoint-1024: 1024px;
+$breakpoint-1280: 1280px;
+$breakpoint-1536: 1536px;
+
+// =============================================================================
+// MIXINS
+// =============================================================================
+
+// Responsive breakpoint mixins
+@mixin mobile {
+  @media (max-width: #{$breakpoint-768 - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$breakpoint-768}) and (max-width: #{$breakpoint-1024 - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$breakpoint-1024}) {
+    @content;
+  }
+}
+
+@mixin tablet-up {
+  @media (min-width: #{$breakpoint-768}) {
+    @content;
+  }
+}
+
+@mixin desktop-up {
+  @media (min-width: #{$breakpoint-1024}) {
+    @content;
+  }
+}
+
+@mixin large-desktop-up {
+  @media (min-width: #{$breakpoint-1280}) {
+    @content;
+  }
+}
+
+// Typography mixins
+@mixin typography-h1 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  font-size: $mobile-h1-36;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+
+  @include desktop-up {
+    font-size: $desktop-h1-64;
+  }
+}
+
+@mixin typography-h2 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-bold;
+  font-size: $mobile-h2-30;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+
+  @include desktop-up {
+    font-size: $desktop-h2-48;
+  }
+}
+
+@mixin typography-h3 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-semibold;
+  font-size: $mobile-h3-24;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+
+  @include desktop-up {
+    font-size: $desktop-h3-36;
+  }
+}
+
+@mixin typography-h4 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-semibold;
+  font-size: $mobile-h4-20;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+
+  @include desktop-up {
+    font-size: $desktop-h4-30;
+  }
+}
+
+@mixin typography-h5 {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-semibold;
+  font-size: $mobile-h5-18;
+  line-height: $line-height-tight;
+  letter-spacing: $letter-spacing-tight;
+
+  @include desktop-up {
+    font-size: $desktop-h5-24;
+  }
+}
+
+@mixin typography-body-large {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $mobile-18pt-regular;
+  line-height: $line-height-relaxed;
+
+  @include desktop-up {
+    font-size: $desktop-20pt-regular;
+  }
+}
+
+@mixin typography-body {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $mobile-16pt-regular;
+  line-height: $line-height-relaxed;
+
+  @include desktop-up {
+    font-size: $desktop-16pt-regular;
+  }
+}
+
+@mixin typography-body-small {
+  font-family: $font-family-primary;
+  font-weight: $font-weight-regular;
+  font-size: $mobile-14pt-regular;
+  line-height: $line-height-normal;
+
+  @include desktop-up {
+    font-size: $desktop-14pt-regular;
+  }
+}
+
+// Animation mixins
+@mixin transition($property: all, $duration: 0.2s, $timing: ease-in-out) {
+  transition: $property $duration $timing;
+}
+
+@mixin hover-lift {
+  @include transition(transform);
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// Focus styles for accessibility
+@mixin focus-visible {
+  &:focus-visible {
+    outline: 2px solid $color-grox-poppy-base;
+    outline-offset: 2px;
+  }
+}
+
+// =============================================================================
+// RESET & BASE STYLES
+// =============================================================================
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: $font-family-primary;
+  font-size: $mobile-16pt-regular;
+  line-height: $line-height-relaxed;
+  color: $color-grey-900;
+  background-color: $color-white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  @include desktop-up {
+    font-size: $desktop-16pt-regular;
+  }
+}
+
+// =============================================================================
+// UTILITY CLASSES
+// =============================================================================
+
+// Container
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 $container-padding-mobile;
+
+  @include tablet-up {
+    padding: 0 $container-padding-tablet;
+  }
+
+  @include desktop-up {
+    padding: 0 $container-padding-desktop;
+  }
+}
+
+// Text utilities
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+// Display utilities
+.flex {
+  display: flex;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+// Spacing utilities
+.mb-0 {
+  margin-bottom: $spacing-0;
+}
+
+.mb-4 {
+  margin-bottom: $spacing-4;
+}
+
+.mb-8 {
+  margin-bottom: $spacing-8;
+}
+
+.mb-12 {
+  margin-bottom: $spacing-12;
+}
+
+.mb-16 {
+  margin-bottom: $spacing-16;
+}
+
+.mb-20 {
+  margin-bottom: $spacing-20;
+}
+
+.mb-24 {
+  margin-bottom: $spacing-24;
+}
+
+.mb-32 {
+  margin-bottom: $spacing-32;
+}
+
+.mb-40 {
+  margin-bottom: $spacing-40;
+}
+
+.mb-48 {
+  margin-bottom: $spacing-48;
+}
+
+.mb-64 {
+  margin-bottom: $spacing-64;
+}
+
+.mb-80 {
+  margin-bottom: $spacing-80;
+}
+
+.mb-96 {
+  margin-bottom: $spacing-96;
+}
+
+.mt-0 {
+  margin-top: $spacing-0;
+}
+
+.mt-4 {
+  margin-top: $spacing-4;
+}
+
+.mt-8 {
+  margin-top: $spacing-8;
+}
+
+.mt-12 {
+  margin-top: $spacing-12;
+}
+
+.mt-16 {
+  margin-top: $spacing-16;
+}
+
+.mt-20 {
+  margin-top: $spacing-20;
+}
+
+.mt-24 {
+  margin-top: $spacing-24;
+}
+
+.mt-32 {
+  margin-top: $spacing-32;
+}
+
+.mt-40 {
+  margin-top: $spacing-40;
+}
+
+.mt-48 {
+  margin-top: $spacing-48;
+}
+
+.mt-64 {
+  margin-top: $spacing-64;
+}
+
+.mt-80 {
+  margin-top: $spacing-80;
+}
+
+.mt-96 {
+  margin-top: $spacing-96;
+}
+
+.p-0 {
+  padding: $spacing-0;
+}
+
+.p-4 {
+  padding: $spacing-4;
+}
+
+.p-8 {
+  padding: $spacing-8;
+}
+
+.p-12 {
+  padding: $spacing-12;
+}
+
+.p-16 {
+  padding: $spacing-16;
+}
+
+.p-20 {
+  padding: $spacing-20;
+}
+
+.p-24 {
+  padding: $spacing-24;
+}
+
+.p-32 {
+  padding: $spacing-32;
+}
+
+.p-40 {
+  padding: $spacing-40;
+}
+
+.p-48 {
+  padding: $spacing-48;
+}
+
+.p-64 {
+  padding: $spacing-64;
+}
+
+.p-80 {
+  padding: $spacing-80;
+}
+
+.p-96 {
+  padding: $spacing-96;
+}
+
+// Gap utilities
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.gap-8 {
+  gap: $spacing-8;
+}
+
+.gap-12 {
+  gap: $spacing-12;
+}
+
+.gap-16 {
+  gap: $spacing-16;
+}
+
+.gap-20 {
+  gap: $spacing-20;
+}
+
+.gap-24 {
+  gap: $spacing-24;
+}
+
+.gap-32 {
+  gap: $spacing-32;
+}
+
+.gap-40 {
+  gap: $spacing-40;
+}
+
+.gap-48 {
+  gap: $spacing-48;
+}
+
+.gap-64 {
+  gap: $spacing-64;
+}
+
+.gap-80 {
+  gap: $spacing-80;
+}
+
+.gap-96 {
+  gap: $spacing-96;
+}
+
+.p-48 {
+  padding: $spacing-48;
+}
+
+.p-64 {
+  padding: $spacing-64;
+}
+
+.p-80 {
+  padding: $spacing-48;
+}
+
+.p-64 {
+  padding: $spacing-64;
+}
+
+.p-80 {
+  padding: $spacing-80;
+}
+
+.p-96 {
+  padding: $spacing-96;
+}
+
+// Gap utilities
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.gap-8 {
+  gap: $spacing-8;
+}
+
+.gap-12 {
+  gap: $spacing-12;
+}
+
+.gap-16 {
+  gap: $spacing-16;
+}
+
+.gap-20 {
+  gap: $spacing-20;
+}
+
+.gap-24 {
+  gap: $spacing-24;
+}
+
+.gap-32 {
+  gap: $spacing-32;
+}
+
+.gap-40 {
+  gap: $spacing-40;
+}
+
+.gap-48 {
+  gap: $spacing-48;
+}
+
+.gap-64 {
+  gap: $spacing-64;
+}
+
+.gap-80 {
+  gap: $spacing-80;
+}
+
+.gap-96 {
+  gap: $spacing-96;
+}
+
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.p-64 {
+  padding: $spacing-64;
+}
+
+.p-80 {
+  padding: $spacing-80;
+}
+
+.p-96 {
+  padding: $spacing-96;
+}
+
+// Gap utilities
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.gap-8 {
+  gap: $spacing-8;
+}
+
+.gap-12 {
+  gap: $spacing-12;
+}
+
+.gap-16 {
+  gap: $spacing-16;
+}
+
+.gap-20 {
+  gap: $spacing-20;
+}
+
+.gap-24 {
+  gap: $spacing-24;
+}
+
+.gap-32 {
+  gap: $spacing-32;
+}
+
+.gap-40 {
+  gap: $spacing-40;
+}
+
+.gap-48 {
+  gap: $spacing-48;
+}
+
+.gap-64 {
+  gap: $spacing-64;
+}
+
+.gap-80 {
+  gap: $spacing-80;
+}
+
+.gap-96 {
+  gap: $spacing-96;
+}
+
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.p-64 {
+  padding: $spacing-64;
+}
+
+.p-80 {
+  padding: $spacing-80;
+}
+
+.p-96 {
+  padding: $spacing-96;
+}
+
+// Gap utilities
+.gap-4 {
+  gap: $spacing-4;
+}
+
+.gap-8 {
+  gap: $spacing-8;
+}
+
+.gap-12 {
+  gap: $spacing-12;
+}
+
+.gap-16 {
+  gap: $spacing-16;
+}
+
+.gap-20 {
+  gap: $spacing-20;
+}
+
+.gap-24 {
+  gap: $spacing-24;
+}
+
+.gap-32 {
+  gap: $spacing-32;
+}
+
+.gap-40 {
+  gap: $spacing-40;
+}
+
+.gap-48 {
+  gap: $spacing-48;
+}
+
+.gap-64 {
+  gap: $spacing-64;
+}
+
+.gap-80 {
+  gap: $spacing-80;
+}
+
+.gap-96 {
+  gap: $spacing-96;
+}

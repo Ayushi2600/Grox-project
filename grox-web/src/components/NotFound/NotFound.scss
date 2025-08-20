@@ -1,0 +1,42 @@
+// =============================================================================
+// NOT FOUND COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main.scss' as *;
+
+.not-found-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: $color-grey-1000;
+  .not-found-content {
+    text-align: center;
+    background: $color-white;
+    border-radius: $spacing-24;
+    padding: $spacing-32;
+    padding-top: 20px !important;
+    .error-code {
+      font-size: $spacing-64;
+      font-weight: $font-weight-semibold;
+      color: $color-grox-poppy-base;
+      @include large-desktop-up {
+        font-size: $spacing-96;
+      }
+    }
+    .error-description {
+      font-size: $spacing-24;
+      font-weight: $font-weight-regular;
+      margin-top: $spacing-0;
+      @include large-desktop-up {
+        font-size: 28px;
+      }
+    }
+    @include large-desktop-up {
+      padding: $spacing-48;
+    }
+    button {
+      width: fit-content;
+    }
+  }
+}

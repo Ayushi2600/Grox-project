@@ -1,0 +1,98 @@
+// =============================================================================
+// CTA SECTION COMPONENT STYLES
+// =============================================================================
+
+@use '../../styles/main' as *;
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  padding: 48px $spacing-16;
+  background: linear-gradient(135deg, #5d1f84 0%, #d54241 100%);
+  color: $color-white;
+
+  @include desktop-up {
+    padding: $spacing-64;
+  }
+
+  &__image {
+    width: 320px;
+    height: auto;
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    z-index: 1;
+
+    @include desktop-up {
+      width: 780px;
+      height: auto;
+      bottom: -280px;
+      left: -40px;
+    }
+  }
+}
+
+.cta__content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 $container-padding-mobile;
+  text-align: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-48;
+  z-index: 2;
+
+  @include tablet-up {
+    padding: 0 $container-padding-tablet;
+  }
+
+  @include desktop-up {
+    padding: $spacing-64;
+  }
+}
+
+.cta__title {
+  color: $color-white;
+  margin-bottom: $spacing-24;
+  line-height: 1.2;
+  @include typography-h3;
+}
+
+.cta__description {
+  color: $color-white;
+  margin-bottom: $spacing-40;
+  line-height: 1.6;
+  opacity: 0.9;
+  @include typography-body-large;
+}
+
+.cta__button {
+  border-radius: 32px;
+  padding: $spacing-16 $spacing-32;
+  font-size: $desktop-16pt-regular;
+  font-weight: $font-weight-regular;
+  cursor: pointer;
+  min-width: 240px;
+  @include transition(all, 0.2s, ease-in-out);
+
+  &--primary {
+    background: $color-white;
+    color: $grox-violet-06;
+    border: 1px solid $grox-violet-08;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+.cta__disclaimer {
+  color: $color-white;
+  opacity: 0.8;
+  margin: 0;
+  @include typography-body-small;
+}
