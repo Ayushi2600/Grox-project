@@ -17,7 +17,15 @@ export default defineConfig({
   base: './',
   server: {
     host: true, // allow access from external URLs (e.g., ngrok)
-    allowedHosts: ['25176eec41a6.ngrok-free.app'],
+    port: 5173,
+    // allowedHosts: ['aee383c377f2.ngrok-free.app'],
+        proxy: {
+      '/api': {
+        target: 'http://localhost:8080', // backend local port
+        changeOrigin: true,
+        secure: false,
+      },
+    },
   },
   test: {
     projects: [

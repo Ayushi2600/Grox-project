@@ -36,9 +36,9 @@ const privateRoutes = () => [
   {
     path: '/kyc-verify',
     element: (
-      <ProtectedRoute check={auth => auth.isPhoneVerified}>
+      // <ProtectedRoute check={auth => auth.isPhoneVerified}>
         <KycVerification />
-      </ProtectedRoute>
+      // </ProtectedRoute>
     ),
   },
   {
