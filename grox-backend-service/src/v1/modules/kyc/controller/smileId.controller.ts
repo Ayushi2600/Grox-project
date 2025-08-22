@@ -24,15 +24,13 @@ export class SmileIdController {
 
       const result = await this.smileIdService.submitBiometricKyc(kycRequest);
 
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "Biometric KYC job submitted successfully",
-          data: result,
-          jobId: finalJobId,
-          userId: finalUserId,
-        });
+      res.status(200).json({
+        success: true,
+        message: "Biometric KYC job submitted successfully",
+        ...result,
+        jobId: finalJobId,
+        userId: finalUserId,
+      });
     } catch (error: any) {
       res
         .status(400)
@@ -45,35 +43,29 @@ export class SmileIdController {
       const callbackResult = await this.smileIdService.processCallback(
         req.body
       );
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: "Callback processed successfully",
-          data: callbackResult,
-        });
+      res.status(200).json({
+        success: true,
+        message: "Callback processed successfully",
+        data: callbackResult,
+      });
     } catch (error: any) {
-      res
-        .status(200)
-        .json({
-          success: false,
-          message: "Callback received but processing failed",
-          error: error.message,
-        });
+      res.status(400).json({
+        success: false,
+        message: "Callback received but processing failed",
+        error: error.message,
+      });
     }
   };
 
   getJobStatus = async (req: Request, res: Response): Promise<void> => {
     try {
-      const { smileJobId } = req.params;
-      if (!smileJobId) {
-        res
-          .status(400)
-          .json({ success: false, message: "Smile Job ID is required" });
+      const { jobId } = req.params;
+      if (!jobId) {
+        res.status(400).json({ success: false, message: "Job ID is required" });
         return;
       }
 
-      const jobStatus = await this.smileIdService.getJobStatus(smileJobId);
+      const jobStatus = await this.smileIdService.getJobStatus(jobId);
       res.status(200).json(jobStatus);
     } catch (error: any) {
       res.status(400).json({ success: false, message: error.message });
@@ -96,12 +88,10 @@ export class SmileIdController {
   generateTestIds = async (req: Request, res: Response): Promise<void> => {
     const userId = this.smileIdService.generateUserId();
     const jobId = this.smileIdService.generateJobId();
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: { userId, jobId, timestamp: new Date().toISOString() },
-      });
+    res.status(200).json({
+      success: true,
+      data: { userId, jobId, timestamp: new Date().toISOString() },
+    });
   };
 
   getSupportedIdTypes = async (req: Request, res: Response): Promise<void> => {
@@ -115,11 +105,9 @@ export class SmileIdController {
     const countryCode = req.params.country?.toUpperCase();
     const idTypes =
       supportedIdTypes[countryCode as keyof typeof supportedIdTypes] || [];
-    res
-      .status(200)
-      .json({
-        success: true,
-        data: { country: countryCode, supportedIdTypes: idTypes },
-      });
+    res.status(200).json({
+      success: true,
+      data: { country: countryCode, supportedIdTypes: idTypes },
+    });
   };
 }

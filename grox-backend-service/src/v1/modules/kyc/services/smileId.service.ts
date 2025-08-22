@@ -97,7 +97,7 @@ export class SmileIdService {
       user_id: request.userId,
       job_type: 1,
       optional_info: "Biometric KYC verification",
-      Photo: request.selfieImage
+      Photo: request.selfieImage,
     };
 
     const imageDetails: ImageDetail[] = [];
@@ -138,6 +138,8 @@ export class SmileIdService {
       options
     );
 
+    const smileJobId = response?.data?.result?.SmileJobID || null;
+
     // Save job in memory as PENDING
     this.saveJob(request.jobId, {
       userId: request.userId,
@@ -146,42 +148,52 @@ export class SmileIdService {
       resultText: null,
       confidenceValue: null,
       actions: null,
+      smileJobId,
       partnerParams,
     });
 
     return {
       success: true,
       data: response,
+      smileJobId,
       message: "Biometric KYC job submitted successfully",
     };
   }
 
   async processCallback(callbackData: any): Promise<any> {
+    const partnerJobId = callbackData.PartnerParams?.job_id;
+    const smileJobId = callbackData.SmileJobID;
+
+    const existingJob = partnerJobId ? this.jobs[partnerJobId] : null;
+
+    if (!existingJob) {
+      throw new Error("Unknown job_id in callback");
+    }
+
+    if (existingJob.smileJobId && existingJob.smileJobId !== smileJobId) {
+      throw new Error("Invalid SmileJobID in callback");
+    }
+
+    this.jobs[partnerJobId] = {
+      ...existingJob,
+      status: "COMPLETED",
+      resultCode: callbackData.ResultCode,
+      resultText: callbackData.ResultText,
+      confidenceValue: callbackData.ConfidenceValue,
+      actions: callbackData.Actions,
+      smileJobId: smileJobId,
+      updatedAt: new Date(),
+    };
+
     const result = {
-      smileJobId: callbackData.SmileJobID,
+      smileJobId,
       resultCode: callbackData.ResultCode,
       resultText: callbackData.ResultText,
       confidenceValue: callbackData.ConfidenceValue,
       actions: callbackData.Actions,
       partnerParams: callbackData.PartnerParams,
-      timestamp: callbackData.timestamp,
+      timestamp: callbackData.timestamp || new Date().toISOString(),
     };
-
-    const partnerJobId = callbackData.PartnerParams?.job_id;
-
-    // Update in-memory job status
-    if (partnerJobId && this.jobs[partnerJobId]) {
-      this.jobs[partnerJobId] = {
-        ...this.jobs[partnerJobId],
-        status: "COMPLETED",
-        resultCode: result.resultCode,
-        resultText: result.resultText,
-        confidenceValue: result.confidenceValue,
-        actions: result.actions,
-        smileJobId: result.smileJobId,
-        updatedAt: new Date(),
-      };
-    }
 
     return result;
   }

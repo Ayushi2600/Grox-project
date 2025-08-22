@@ -12,7 +12,7 @@ router.post("/biometric-kyc", smileIdController.submitBiometricKyc);
 router.post("/callback", smileIdController.handleCallback);
 
 // Job status route
-router.get("/job-status/:smileJobId", smileIdController.getJobStatus);
+router.get("/job-status/:jobId", smileIdController.getJobStatus);
 
 // Health check route
 router.get("/health", smileIdController.healthCheck);
