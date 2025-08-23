@@ -1,113 +1,148 @@
-// @v1/modules/kyc/controllers/smileId.controller.ts
 import { Request, Response } from "express";
-import { SmileIdService } from "../services/smileId.service";
+import { smileIdService } from "../services/smileId.service";
 
-export class SmileIdController {
-  private smileIdService: SmileIdService;
+const jobSignatureMap = new Map<
+  string,
+  { userId: string; signature: string }
+>();
+const signatureMap = new Map<string, string>();
 
-  constructor() {
-    this.smileIdService = new SmileIdService();
-  }
-
-  submitBiometricKyc = async (req: Request, res: Response): Promise<void> => {
+class SmileIdController {
+  /**
+   * API to start a Biometric KYC job
+   */
+  async biometricKyc(req: Request, res: Response) {
     try {
-      const body = req.body;
-      const finalUserId = body.userId || this.smileIdService.generateUserId();
-      const finalJobId = body.jobId || this.smileIdService.generateJobId();
+      const { jobId, userId, selfieBase64, idCardBase64, idInfo } = req.body;
 
-      const kycRequest = {
-        ...body,
-        userId: finalUserId,
-        jobId: finalJobId,
-        country: body.country?.toUpperCase(),
-      };
-
-      const result = await this.smileIdService.submitBiometricKyc(kycRequest);
-
-      res.status(200).json({
-        success: true,
-        message: "Biometric KYC job submitted successfully",
-        ...result,
-        jobId: finalJobId,
-        userId: finalUserId,
-      });
-    } catch (error: any) {
-      res
-        .status(400)
-        .json({ success: false, message: error.message, error: error.stack });
-    }
-  };
-
-  handleCallback = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const callbackResult = await this.smileIdService.processCallback(
-        req.body
-      );
-      res.status(200).json({
-        success: true,
-        message: "Callback processed successfully",
-        data: callbackResult,
-      });
-    } catch (error: any) {
-      res.status(400).json({
-        success: false,
-        message: "Callback received but processing failed",
-        error: error.message,
-      });
-    }
-  };
-
-  getJobStatus = async (req: Request, res: Response): Promise<void> => {
-    try {
-      const { jobId } = req.params;
-      if (!jobId) {
-        res.status(400).json({ success: false, message: "Job ID is required" });
-        return;
+      if (!jobId || !userId || !selfieBase64 || !idCardBase64 || !idInfo) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Missing required fields" });
       }
 
-      const jobStatus = await this.smileIdService.getJobStatus(jobId);
-      res.status(200).json(jobStatus);
-    } catch (error: any) {
-      res.status(400).json({ success: false, message: error.message });
+      const response = await smileIdService.submitJob(
+        userId,
+        jobId,
+        selfieBase64,
+        idCardBase64,
+        idInfo
+      );
+
+      jobSignatureMap.set(jobId, { userId, signature: "" });
+
+      res.json({ success: true, data: response });
+    } catch (err: any) {
+      console.error(err);
+      res.status(500).json({
+        success: false,
+        message: "Biometric KYC failed",
+        error: err.message,
+      });
     }
-  };
+  }
 
-  healthCheck = async (req: Request, res: Response): Promise<void> => {
-    res.status(200).json({
-      success: true,
-      message: "Smile ID KYC service is healthy",
-      timestamp: new Date().toISOString(),
-      config: {
-        partnerId: process.env.SMILE_PARTNER_ID,
-        server: process.env.SMILE_SERVER,
-        callbackUrl: process.env.SMILE_DEFAULT_CALLBACK,
-      },
-    });
-  };
+  /**
+   * Callback endpoint (Smile ID will send results here)
+   */
+  async callback(req: Request, res: Response) {
+    try {
+      const signature = req.headers["smile-signature"] as string;
+      const timestamp = req.headers["smile-timestamp"] as string;
 
-  generateTestIds = async (req: Request, res: Response): Promise<void> => {
-    const userId = this.smileIdService.generateUserId();
-    const jobId = this.smileIdService.generateJobId();
-    res.status(200).json({
-      success: true,
-      data: { userId, jobId, timestamp: new Date().toISOString() },
-    });
-  };
+      if (!signature || !timestamp) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Missing headers" });
+      }
 
-  getSupportedIdTypes = async (req: Request, res: Response): Promise<void> => {
-    const supportedIdTypes = {
-      NG: ["NIN", "BVN", "PASSPORT", "DRIVERS_LICENSE"],
-      KE: ["NATIONAL_ID", "PASSPORT", "ALIEN_ID"],
-      GH: ["GHANA_CARD", "PASSPORT", "DRIVERS_LICENSE"],
-      UG: ["NATIONAL_ID", "PASSPORT"],
-      ZA: ["NATIONAL_ID", "PASSPORT", "DRIVERS_LICENSE"],
-    };
-    const countryCode = req.params.country?.toUpperCase();
-    const idTypes =
-      supportedIdTypes[countryCode as keyof typeof supportedIdTypes] || [];
-    res.status(200).json({
-      success: true,
-      data: { country: countryCode, supportedIdTypes: idTypes },
-    });
-  };
+      // Verify cryptographic signature
+      const isValid = smileIdService.verifyCallback(timestamp, signature);
+      if (!isValid) {
+        return res
+          .status(401)
+          .json({ success: false, message: "Invalid callback signature" });
+      }
+
+      const { job_id, user_id } = req.body;
+      const existing = jobSignatureMap.get(job_id);
+
+      // 1. Job not registered
+      if (!existing) {
+        return res
+          .status(400)
+          .json({ success: false, message: "Unknown jobId in callback" });
+      }
+
+      // 2. User mismatch
+      if (existing.userId !== user_id) {
+        return res.status(400).json({
+          success: false,
+          message: "Callback userId does not match original job’s userId",
+        });
+      }
+
+      // 3. Signature reuse check
+      if (
+        signatureMap.has(signature) &&
+        signatureMap.get(signature) !== job_id
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid signature — reused for another job",
+        });
+      }
+
+      // 4. First valid callback
+      if (!existing.signature) {
+        existing.signature = signature;
+        jobSignatureMap.set(job_id, existing);
+        signatureMap.set(signature, job_id);
+        return res.json({ success: true, message: "Callback received" });
+      }
+
+      // 5. Subsequent callbacks for same job → same response
+      return res.json({ success: true, message: "Callback already processed" });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  }
+
+  /**
+   * Manually check job status
+   */
+  async jobStatus(req: Request, res: Response) {
+    try {
+      const { userId, jobId } = req.query;
+      const result = await smileIdService.getJobStatus(
+        userId as string,
+        jobId as string
+      );
+      res.json({ success: true, data: result });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  }
+
+  /**
+   * Generate Web Token for frontend Smile ID SDK
+   */
+  async webToken(req: Request, res: Response) {
+    try {
+      const { userId, jobId } = req.body;
+
+      if (!userId || !jobId) {
+        return res
+          .status(400)
+          .json({ success: false, message: "userId and jobId are required" });
+      }
+
+      const token = await smileIdService.generateWebToken(userId, jobId);
+      res.json({ success: true, data: token });
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err.message });
+    }
+  }
 }
+
+export const smileIdController = new SmileIdController();

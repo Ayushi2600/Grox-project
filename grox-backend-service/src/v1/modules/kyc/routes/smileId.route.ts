@@ -1,29 +1,11 @@
-// @v1/modules/kyc/routes/smileId.route.ts
 import { Router } from "express";
-import { SmileIdController } from "../controller/smileId.controller";
+import { smileIdController } from "../controller/smileId.controller";
 
 const router = Router();
-const smileIdController = new SmileIdController();
 
-// Biometric KYC routes
-router.post("/biometric-kyc", smileIdController.submitBiometricKyc);
-
-// Callback route for Smile ID
-router.post("/callback", smileIdController.handleCallback);
-
-// Job status route
-router.get("/job-status/:jobId", smileIdController.getJobStatus);
-
-// Health check route
-router.get("/health", smileIdController.healthCheck);
-
-// Generate test IDs for development
-router.get("/generate-ids", smileIdController.generateTestIds);
-
-// Get supported ID types for a country
-router.get(
-  "/supported-id-types/:country",
-  smileIdController.getSupportedIdTypes
-);
+router.post("/biometric-kyc", (req, res) => smileIdController.biometricKyc(req, res));
+router.post("/callback", (req, res) => smileIdController.callback(req, res));
+router.get("/job-status", (req, res) => smileIdController.jobStatus(req, res));
+router.post("/web-token", (req, res) => smileIdController.webToken(req, res));
 
 export default router;

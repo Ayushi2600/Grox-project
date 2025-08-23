@@ -1,245 +1,96 @@
-// @v1/modules/kyc/services/smileId.service.ts
-import * as smileIdentityCore from "smile-identity-core";
+import { WebApi, Signature, Utilities } from "smile-identity-core";
 
-interface PartnerParams {
-  job_id: string;
-  user_id: string;
-  job_type: number;
-  optional_info?: string;
-  Photo?: string;
-}
+const partner_id = process.env.SMILE_ID_PARTNER_ID as string;
+const api_key = process.env.SMILE_ID_API_KEY as string;
+const sid_server = process.env.SMILE_ID_SERVER || "0"; // 0 = sandbox, 1 = production
+const callback_url =
+  process.env.SMILE_ID_CALLBACK_URL ||
+  "https://8fac7959647a.ngrok-free.app/api/v1/kyc/callback";
 
-interface ImageDetail {
-  image_type_id: number;
-  image: string;
-}
-
-interface IdInfo {
-  first_name: string;
-  last_name: string;
+export interface IdInfo {
   country: string;
   id_type: string;
   id_number: string;
-  dob: string;
-  entered: string;
+  first_name?: string;
+  last_name?: string;
+  dob?: string;
+  gender?: string;
+  phone_number?: string;
 }
 
-interface JobOptions {
-  return_job_status: boolean;
-  return_history: boolean;
-  return_image_links: boolean;
-  signature: boolean;
-}
-
-interface BiometricKycRequest {
-  userId: string;
-  jobId: string;
-  firstName: string;
-  lastName: string;
-  country: string;
-  idType: string;
-  idNumber: string;
-  dateOfBirth: string;
-  selfieImage: string;
-  livenessImages?: string[];
-  isBase64?: boolean;
-  returnJobStatus?: boolean;
-  returnHistory?: boolean;
-  returnImageLinks?: boolean;
-}
-
-export class SmileIdService {
-  private webApi: any;
-  private partnerId: string;
-  private apiKey: string;
-  private sidServer: string;
-  private defaultCallback: string;
-
-  // In-memory store for sandbox testing
-  private jobs: Record<string, any> = {};
+class SmileIdService {
+  private connection: WebApi;
 
   constructor() {
-    this.partnerId = process.env.SMILE_PARTNER_ID || "";
-    this.apiKey = process.env.SMILE_API_KEY || "";
-    this.sidServer = process.env.SMILE_SERVER || "0";
-    this.defaultCallback = process.env.SMILE_DEFAULT_CALLBACK || "";
-
-    if (!this.partnerId || !this.apiKey || !this.defaultCallback) {
-      throw new Error(
-        "Missing required Smile ID configuration in environment variables"
-      );
-    }
-
-    const WebApi = smileIdentityCore.WebApi;
-    this.webApi = new WebApi(
-      this.partnerId,
-      this.defaultCallback,
-      this.apiKey,
-      this.sidServer
-    );
+    this.connection = new WebApi(partner_id, callback_url, api_key, sid_server);
   }
 
-  // Save job in-memory
-  saveJob(jobId: string, data: any) {
-    this.jobs[jobId] = { ...data, updatedAt: new Date() };
-  }
+  /**
+   * Submit a biometric KYC job
+   */
+  async submitJob(
+    userId: string,
+    jobId: string,
+    selfieBase64: string,
+    idCardBase64: string,
+    idInfo: IdInfo
+  ) {
+    const partner_params = { job_id: jobId, user_id: userId, job_type: 1 };
 
-  // Get job from in-memory store
-  getJob(jobId: string) {
-    return this.jobs[jobId] || null;
-  }
+    // Image details: 2 = selfie, 6 = liveness
+    const image_details = [
+      { image_type_id: 2, image: selfieBase64 },
+      { image_type_id: 3, image: idCardBase64 },
+    ];
 
-  async submitBiometricKyc(request: BiometricKycRequest): Promise<any> {
-    this.validateBiometricKycRequest(request);
-
-    const partnerParams: PartnerParams = {
-      job_id: request.jobId,
-      user_id: request.userId,
-      job_type: 1,
-      optional_info: "Biometric KYC verification",
-      Photo: request.selfieImage,
-    };
-
-    const imageDetails: ImageDetail[] = [];
-    const selfieImageType = request.isBase64 ? 2 : 0;
-    imageDetails.push({
-      image_type_id: selfieImageType,
-      image: request.selfieImage,
-    });
-
-    if (request.livenessImages?.length) {
-      const livenessImageType = request.isBase64 ? 6 : 4;
-      request.livenessImages.forEach((img) => {
-        imageDetails.push({ image_type_id: livenessImageType, image: img });
-      });
-    }
-
-    const idInfo: IdInfo = {
-      first_name: request.firstName,
-      last_name: request.lastName,
-      country: request.country,
-      id_type: request.idType,
-      id_number: request.idNumber,
-      dob: request.dateOfBirth,
-      entered: "true",
-    };
-
-    const options: JobOptions = {
-      return_job_status: request.returnJobStatus ?? false,
-      return_history: request.returnHistory ?? false,
-      return_image_links: request.returnImageLinks ?? false,
+    const options = {
+      return_job_status: true,
+      return_history: true,
+      return_image_links: true,
       signature: true,
     };
 
-    const response = await this.webApi.submit_job(
-      partnerParams,
-      imageDetails,
+    const response = await this.connection.submit_job(
+      partner_params,
+      image_details,
       idInfo,
       options
     );
+    return response;
+  }
 
-    const smileJobId = response?.data?.result?.SmileJobID || null;
+  /**
+   * Verify Smile ID’s callback authenticity
+   */
+  verifyCallback(timestamp: string, signature: string) {
+    const sig = new Signature(partner_id, api_key);
+    return sig.confirm_signature(timestamp, signature);
+  }
 
-    // Save job in memory as PENDING
-    this.saveJob(request.jobId, {
-      userId: request.userId,
-      status: "PENDING",
-      resultCode: null,
-      resultText: null,
-      confidenceValue: null,
-      actions: null,
-      smileJobId,
-      partnerParams,
+  /**
+   * Get Job Status (optional re-check)
+   */
+  async getJobStatus(userId: string, jobId: string) {
+    const utils = new Utilities(partner_id, api_key, sid_server);
+    return await utils.get_job_status(userId, jobId, {
+      return_history: true,
+      return_image_links: true,
+    });
+  }
+
+  /**
+   * Generate a Smile ID Web Token
+   */
+  async generateWebToken(userId: string, jobId: string) {
+    const response = await this.connection.get_web_token({
+      user_id: userId,
+      job_id: jobId,
+      product: "biometric_kyc", // can be 'biometric_kyc', 'document_verification' etc.
+      callback_url: callback_url,
     });
 
-    return {
-      success: true,
-      data: response,
-      smileJobId,
-      message: "Biometric KYC job submitted successfully",
-    };
-  }
-
-  async processCallback(callbackData: any): Promise<any> {
-    const partnerJobId = callbackData.PartnerParams?.job_id;
-    const smileJobId = callbackData.SmileJobID;
-
-    const existingJob = partnerJobId ? this.jobs[partnerJobId] : null;
-
-    if (!existingJob) {
-      throw new Error("Unknown job_id in callback");
-    }
-
-    if (existingJob.smileJobId && existingJob.smileJobId !== smileJobId) {
-      throw new Error("Invalid SmileJobID in callback");
-    }
-
-    this.jobs[partnerJobId] = {
-      ...existingJob,
-      status: "COMPLETED",
-      resultCode: callbackData.ResultCode,
-      resultText: callbackData.ResultText,
-      confidenceValue: callbackData.ConfidenceValue,
-      actions: callbackData.Actions,
-      smileJobId: smileJobId,
-      updatedAt: new Date(),
-    };
-
-    const result = {
-      smileJobId,
-      resultCode: callbackData.ResultCode,
-      resultText: callbackData.ResultText,
-      confidenceValue: callbackData.ConfidenceValue,
-      actions: callbackData.Actions,
-      partnerParams: callbackData.PartnerParams,
-      timestamp: callbackData.timestamp || new Date().toISOString(),
-    };
-
-    return result;
-  }
-
-  async getJobStatus(jobId: string): Promise<any> {
-    const job = this.getJob(jobId);
-
-    if (!job) {
-      return { success: false, message: "Job not found", jobId };
-    }
-
-    return { success: true, data: job };
-  }
-
-  private validateBiometricKycRequest(request: BiometricKycRequest) {
-    const requiredFields = [
-      "userId",
-      "jobId",
-      "firstName",
-      "lastName",
-      "country",
-      "idType",
-      "idNumber",
-      "dateOfBirth",
-      "selfieImage",
-    ];
-
-    for (const field of requiredFields) {
-      if (!request[field as keyof BiometricKycRequest]) {
-        throw new Error(`Missing required field: ${field}`);
-      }
-    }
-
-    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(request.dateOfBirth))
-      throw new Error("Date of birth must be yyyy-mm-dd");
-
-    if (request.country.length !== 2)
-      throw new Error("Country must be 2-letter code");
-  }
-
-  generateJobId(prefix: string = "KYC"): string {
-    return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-  }
-
-  generateUserId(prefix: string = "USER"): string {
-    return `${prefix}_${Date.now()}_${Math.floor(Math.random() * 10000)}`;
+    return response; // contains token + expiry
   }
 }
+
+export const smileIdService = new SmileIdService();
